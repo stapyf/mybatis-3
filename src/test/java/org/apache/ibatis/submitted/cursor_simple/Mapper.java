@@ -1,5 +1,5 @@
-/**
- *    Copyright 2009-2019 the original author or authors.
+/*
+ *    Copyright 2009-2021 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
  */
 package org.apache.ibatis.submitted.cursor_simple;
 
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.cursor.Cursor;
 import org.apache.ibatis.session.RowBounds;
@@ -33,4 +34,8 @@ public interface Mapper {
     "select null id, null name from (values (0))"
   })
   Cursor<User> getNullUsers(RowBounds rowBounds);
+
+  @Select("select * from users")
+  @Options(fetchSize = Integer.MIN_VALUE)
+  Cursor<User> getUsersMysqlStream();
 }
